@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Jason Gellatly"]
   spec.email         = ["jason.gellatly@bigcommerce.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
+  spec.summary       = %q{Client gem for interacting with Hashicorp's Nomad HTTP API}
+  spec.description   = %q{Client gem for interacting with Hashicorp's Nomad HTTP API}
   spec.homepage      = "TODO: Put your gem's website or public repo URL here."
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
@@ -32,4 +32,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.13"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency "pry"
+  spec.add_development_dependency "binding_of_caller"
+  spec.add_dependency "faraday", ">= 0.9"
+  spec.add_dependency "faraday_middleware", ">= 0.10"
 end
