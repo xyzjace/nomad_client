@@ -113,6 +113,17 @@ module NomadClient
         end
       end
 
+      ##
+      # Force a new instance of a periodic Job
+      #
+      # @param [String] id The ID of the job according to Nomad
+      # @return [Faraday::Response] A faraday response from Nomad
+      def periodic_force(id)
+        connection.post do |req|
+          req.url "job/#{id}/periodic/force"
+        end
+      end
+
     end
   end
 end

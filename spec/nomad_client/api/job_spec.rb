@@ -107,6 +107,15 @@ module NomadClient
           end
         end
 
+        describe '#periodic_force' do
+          it 'should call post with job_id on the job_id periodic force endpoint' do
+            expect(connection).to receive(:post).and_yield(block_receiver)
+            expect(block_receiver).to receive(:url).with("job/#{job_id}/periodic/force")
+
+            nomad_client.job.periodic_force(job_id)
+          end
+        end
+
       end
     end
   end
