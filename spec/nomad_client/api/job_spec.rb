@@ -40,6 +40,16 @@ module NomadClient
           end
         end
 
+        describe '#update' do
+          it 'should call put with job_id and a job json blob on the job_id endpoint' do
+            expect(connection).to receive(:put).and_yield(block_receiver)
+            expect(block_receiver).to receive(:url).with("job/#{job_id}")
+            expect(block_receiver).to receive(:body=).with(nomad_job)
+
+            nomad_client.job.update(job_id, nomad_job)
+          end
+        end
+
         describe '#plan' do
           it 'should call post with job_id and a job json blob on the plan endpoint' do
             expect(connection).to receive(:post).and_yield(block_receiver)

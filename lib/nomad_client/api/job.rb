@@ -32,6 +32,19 @@ module NomadClient
       end
 
       ##
+      # Update a Job in Nomad
+      #
+      # @param [String] id The ID of the job according to Nomad
+      # @param [Hash|String] job A hash or json string of a valid Job payload (https://www.nomadproject.io/docs/http/job.html)
+      # @return [Faraday::Response] A faraday response from Nomad
+      def update(id, job)
+        connection.put do |req|
+          req.url "job/#{id}"
+          req.body = job
+        end
+      end
+
+      ##
       # Plan a Job in Nomad
       #
       # @param [String] id The ID of the job according to Nomad
