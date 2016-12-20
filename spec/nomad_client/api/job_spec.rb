@@ -60,8 +60,27 @@ module NomadClient
             end
           end
         end
-      end
 
+        describe '#allocations' do
+          it 'should call get with job_id on the job allocations endpoint' do
+            expect(connection).to receive(:get).and_yield(block_receiver)
+            expect(block_receiver).to receive(:url).with("job/#{job_id}/allocations")
+
+            nomad_client.job.allocations(job_id)
+          end
+        end
+
+        describe '#evaluations' do
+          it 'should call get with job_id on the job evaluations endpoint' do
+            expect(connection).to receive(:get).and_yield(block_receiver)
+            expect(block_receiver).to receive(:url).with("job/#{job_id}/evaluations")
+
+            nomad_client.job.evaluations(job_id)
+          end
+        end
+
+
+      end
     end
   end
 end

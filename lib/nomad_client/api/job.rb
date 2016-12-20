@@ -56,6 +56,28 @@ module NomadClient
       end
       alias_method :deregister, :delete
 
+      ##
+      # Retrieve the allocations for a Job in Nomad
+      #
+      # @param [String] id The ID of the job according to Nomad
+      # @return [Faraday::Response] A faraday response from Nomad
+      def allocations(id)
+        connection.get do |req|
+          req.url "job/#{id}/allocations"
+        end
+      end
+
+      ##
+      # Retrieve the evaluations for a Job in Nomad
+      #
+      # @param [String] id The ID of the job according to Nomad
+      # @return [Faraday::Response] A faraday response from Nomad
+      def evaluations(id)
+        connection.get do |req|
+          req.url "job/#{id}/evaluations"
+        end
+      end
+
     end
   end
 end
