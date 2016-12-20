@@ -5,7 +5,7 @@ module NomadClient
       let!(:nomad_client) { NomadClient::Client.new('http://nomad.local') }
 
       describe 'allocation' do
-        it 'should add the evaluation method to the NomadClient::Client class' do
+        it 'should add the allocation method to the NomadClient::Client class' do
           expect(nomad_client).to respond_to :allocation
           expect(nomad_client.allocation).to be_kind_of NomadClient::Api::Allocation
         end
