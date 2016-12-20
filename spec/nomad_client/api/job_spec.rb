@@ -30,6 +30,15 @@ module NomadClient
           end
         end
 
+        describe '#summary' do
+          it 'should call get with job_id on the job_id summary endpoint' do
+            expect(connection).to receive(:get).and_yield(block_receiver)
+            expect(block_receiver).to receive(:url).with("job/#{job_id}/summary")
+
+            nomad_client.job.summary(job_id)
+          end
+        end
+
         describe '#create' do
           it 'should call post with job_id and a job json blob on the job_id endpoint' do
             expect(connection).to receive(:post).and_yield(block_receiver)

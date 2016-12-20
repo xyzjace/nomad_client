@@ -19,6 +19,17 @@ module NomadClient
       end
 
       ##
+      # Get a Job's summary from Nomad
+      #
+      # @param [String] id The ID of the job according to Nomad
+      # @return [Faraday::Response] A faraday response from Nomad
+      def summary(id)
+        connection.get do |req|
+          req.url "job/#{id}/summary"
+        end
+      end
+
+      ##
       # Create a Job in Nomad
       #
       # @param [String] id The ID of the job according to Nomad
