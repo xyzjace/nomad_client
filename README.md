@@ -2,8 +2,6 @@
 
 Client gem for interacting with Hashicorp's [Nomad HTTP API](https://www.nomadproject.io/docs/http/).
 
-TODO: Delete this and the text above, and describe your gem
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -22,7 +20,21 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Initialisation
+For a default client
+
+```ruby
+NomadClient::Client.new('https://nomad.local')
+```
+
+Or to override default configuration
+
+```ruby
+NomadClient::Client.new('https://nomad.local') do |config|
+  config.port = 4647
+  config.api_base_path = '/v2'
+end
+```
 
 ## Development
 
