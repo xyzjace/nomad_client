@@ -29,17 +29,15 @@ module NomadClient
       end
     end
 
-    # Though there are some out there who shun testing private methods, my preference
-    # in this case is to make sure our configuration is ingested correctly and stays so.
-    describe '#client' do
+    describe '#connection' do
       context 'with default options' do
         it 'should configure the http client with our client configuration' do
           nomad_client = NomadClient::Client.new(nomad_url)
-          nomads_client = nomad_client.send(:client)
+          connection = nomad_client.connection
 
-          expect(nomad_url.end_with?(nomads_client.host)).to eq true
-          expect(nomads_client.port).to                      eq Configuration::DEFAULT_PORT
-          expect(nomads_client.path_prefix).to               eq Configuration::DEFAULT_API_BASE_PATH
+          expect(nomad_url.end_with?(connection.host)).to eq true
+          expect(connection.port).to                      eq Configuration::DEFAULT_PORT
+          expect(connection.path_prefix).to               eq Configuration::DEFAULT_API_BASE_PATH
         end
       end
     end

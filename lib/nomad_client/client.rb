@@ -5,19 +5,13 @@ module NomadClient
 
     attr_accessor :configuration
 
-    def self.new(url, config = Configuration.new)
+    def initialize(url, config = Configuration.new)
       config.url = url
       yield(config) if block_given?
-      super(config)
-    end
-
-    def initialize(config)
       @configuration = config
     end
 
-    private
-
-    def client
+    def connection
       ::Faraday.new(url: "#{configuration.url}:#{configuration.port}#{configuration.api_base_path}") do |faraday|
         faraday.request(:json)
         faraday.use(FaradayMiddleware::Mashify)
