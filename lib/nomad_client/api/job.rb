@@ -102,6 +102,17 @@ module NomadClient
         end
       end
 
+      ##
+      # Force a new evaluation for a Job
+      #
+      # @param [String] id The ID of the job according to Nomad
+      # @return [Faraday::Response] A faraday response from Nomad
+      def evaluate(id)
+        connection.post do |req|
+          req.url "job/#{id}/evaluate"
+        end
+      end
+
     end
   end
 end
