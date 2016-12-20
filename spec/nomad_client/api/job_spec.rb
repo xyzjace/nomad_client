@@ -2,7 +2,6 @@ require 'spec_helper'
 module NomadClient
   module Api
     RSpec.describe 'Job' do
-
       let!(:nomad_client) { NomadClient::Client.new('http://nomad.local') }
 
       describe 'job' do
@@ -15,6 +14,7 @@ module NomadClient
       describe 'Job API methods' do
         let(:block_receiver) { double(:block_receiver) }
         let(:job_id)         { 'nomad-job' }
+        let(:nomad_job)      { { "Job" => {} } }
         let!(:connection)    { double(:connection) }
 
         before do
@@ -22,7 +22,7 @@ module NomadClient
         end
 
         describe '#get' do
-          it 'should call get with job_id' do
+          it 'should call get with job_id on the job_id endpoint' do
             expect(connection).to receive(:get).and_yield(block_receiver)
             expect(block_receiver).to receive(:url).with("job/#{job_id}/")
 
@@ -31,8 +31,7 @@ module NomadClient
         end
 
         describe '#create' do
-          it 'should call post with job_id and a job json blob' do
-            nomad_job = { "Job" => {} }
+          it 'should call post with job_id and a job json blob on the job_id endpoint' do
             expect(connection).to receive(:post).and_yield(block_receiver)
             expect(block_receiver).to receive(:url).with("job/#{job_id}")
             expect(block_receiver).to receive(:body=).with(nomad_job)
@@ -40,8 +39,18 @@ module NomadClient
             nomad_client.job.create(job_id, nomad_job)
           end
         end
-      end
 
+        describe '#plan' do
+          it 'should call post with job_id and a job json blob on the plan endpoint' do
+            expect(connection).to receive(:post).and_yield(block_receiver)
+            expect(block_receiver).to receive(:url).with("job/#{job_id}/plan")
+            expect(block_receiver).to receive(:body=).with(nomad_job)
+
+            nomad_client.job.plan(job_id, nomad_job)
+          end
+        end
+
+      end
     end
   end
 end
