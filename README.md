@@ -24,17 +24,30 @@ Or install it yourself as:
 For a default client
 
 ```ruby
-NomadClient::Client.new('https://nomad.local')
+nomad_client = NomadClient::Client.new('https://nomad.local')
 ```
 
 Or to override default configuration
 
 ```ruby
-NomadClient::Client.new('https://nomad.local') do |config|
+nomad_client = NomadClient::Client.new('https://nomad.local') do |config|
   config.port = 4647
   config.api_base_path = '/v2'
 end
 ```
+
+### Querying endpoints
+
+```ruby
+job = nomad_client.job.get('my-job-id') # returns a Faraday::Response
+
+if job.success?
+  job.body # A Hashie::Mash of the JSON payload returning from the job/my-job-id API endpoint
+else
+  # handling of errors here
+end
+```
+
 
 ## Development
 
