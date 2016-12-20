@@ -50,7 +50,18 @@ module NomadClient
           end
         end
 
+        [:deregister, :delete].each do |method_name|
+          describe "##{method_name.to_s}" do
+            it 'should call delete with job_id on the job_id endpoint' do
+              expect(connection).to receive(:delete).and_yield(block_receiver)
+              expect(block_receiver).to receive(:url).with("job/#{job_id}")
+
+              nomad_client.job.send(method_name, job_id)
+            end
+          end
+        end
       end
+
     end
   end
 end

@@ -43,8 +43,19 @@ module NomadClient
           req.body = job
         end
       end
+
+      ##
+      # Deregister a Job in Nomad
+      #
+      # @param [String] id The ID of the job according to Nomad
+      # @return [Faraday::Response] A faraday response from Nomad
+      def delete(id)
+        connection.delete do |req|
+          req.url "job/#{id}"
+        end
+      end
+      alias_method :deregister, :delete
+
     end
   end
 end
-
-
