@@ -23,7 +23,7 @@ module NomadClient
         describe '#get' do
           it 'should call get with allocation_id on the allocation_id endpoint' do
             expect(connection).to receive(:get).and_yield(block_receiver)
-            expect(block_receiver).to receive(:url).with("allocation/#{allocation_id}/")
+            expect(block_receiver).to receive(:url).with("allocation/#{allocation_id}")
 
             nomad_client.allocation.get(allocation_id)
           end

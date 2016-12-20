@@ -14,7 +14,7 @@ module NomadClient
       # @return [Faraday::Response] A faraday response from Nomad
       def get(id)
         connection.get do |req|
-          req.url "allocation/#{id}/"
+          req.url "allocation/#{id}"
         end
       end
     end

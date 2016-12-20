@@ -24,7 +24,7 @@ module NomadClient
         describe '#get' do
           it 'should call get with job_id on the job_id endpoint' do
             expect(connection).to receive(:get).and_yield(block_receiver)
-            expect(block_receiver).to receive(:url).with("job/#{job_id}/")
+            expect(block_receiver).to receive(:url).with("job/#{job_id}")
 
             nomad_client.job.get(job_id)
           end
