@@ -11,5 +11,8 @@ module NomadClient
     require_relative 'api/jobs'
     require_relative 'api/node'
     require_relative 'api/nodes'
+    require_relative 'api/regions'
+    require_relative 'api/status'
+    require_relative 'api/system'
   end
 end
