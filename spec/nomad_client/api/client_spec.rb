@@ -28,6 +28,17 @@ module NomadClient
           end
         end
 
+        describe '#allocation' do
+          it 'should call get with on the allocation endpoint' do
+            allocation_id = '203266e5-e0d6-9486-5e05-397ed2b184af'
+
+            expect(connection).to receive(:get).and_yield(block_receiver)
+            expect(block_receiver).to receive(:url).with("client/allocation/#{allocation_id}/stats")
+
+            nomad_client.client.allocation(allocation_id)
+          end
+        end
+
       end
     end
   end

@@ -18,6 +18,18 @@ module NomadClient
         end
       end
 
+      ##
+      # Query the actual resource usage of a Nomad client
+      # https://www.nomadproject.io/docs/http/client-stats.html
+      #
+      # @param [String] id The ID of the allocation
+      # @return [Faraday::Response] A faraday response from Nomad
+      def allocation(id)
+        connection.get do |req|
+          req.url "client/allocation/#{id}/stats"
+        end
+      end
+
     end
   end
 end
