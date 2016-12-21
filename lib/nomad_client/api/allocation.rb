@@ -8,7 +8,8 @@ module NomadClient
     class Allocation < Path
 
       ##
-      # Get an Allocation
+      # Query a specific allocation
+      # https://www.nomadproject.io/docs/http/alloc.html
       #
       # @param [String] id The ID of the allocation according to Nomad
       # @return [Faraday::Response] A faraday response from Nomad

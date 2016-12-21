@@ -8,7 +8,8 @@ module NomadClient
     class Nodes < Path
 
       ##
-      # Get client nodes from Nomad
+      # Lists all the client nodes registered with Nomad
+      # https://www.nomadproject.io/docs/http/nodes.html
       #
       # @return [Faraday::Response] A faraday response from Nomad
       def get

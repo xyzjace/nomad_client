@@ -28,6 +28,15 @@ module NomadClient
             nomad_client.evaluation.get(evaluation_id)
           end
         end
+
+        describe '#allocations' do
+          it 'should call get with evaluation_id on the allocations endpoint' do
+            expect(connection).to receive(:get).and_yield(block_receiver)
+            expect(block_receiver).to receive(:url).with("evaluation/#{evaluation_id}/allocations")
+
+            nomad_client.evaluation.allocations(evaluation_id)
+          end
+        end
       end
     end
   end

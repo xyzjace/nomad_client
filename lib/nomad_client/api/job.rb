@@ -8,7 +8,8 @@ module NomadClient
     class Job < Path
 
       ##
-      # Get a Job
+      # Query a single job for its specification and status
+      # https://www.nomadproject.io/docs/http/job.html
       #
       # @param [String] id The ID of the job according to Nomad
       # @return [Faraday::Response] A faraday response from Nomad
@@ -19,7 +20,8 @@ module NomadClient
       end
 
       ##
-      # Get a Job's summary from Nomad
+      # Query the summary of a job
+      # https://www.nomadproject.io/docs/http/job.html
       #
       # @param [String] id The ID of the job according to Nomad
       # @return [Faraday::Response] A faraday response from Nomad
@@ -30,7 +32,8 @@ module NomadClient
       end
 
       ##
-      # Create a Job in Nomad
+      # Registers a new job
+      # https://www.nomadproject.io/docs/http/job.html
       #
       # @param [String] id The ID of the job according to Nomad
       # @param [Hash|String] job A hash or json string of a valid Job payload (https://www.nomadproject.io/docs/http/job.html)
@@ -56,7 +59,8 @@ module NomadClient
       end
 
       ##
-      # Plan a Job in Nomad
+      # Invoke a dry-run of the scheduler for the job
+      # https://www.nomadproject.io/docs/http/job.html
       #
       # @param [String] id The ID of the job according to Nomad
       # @param [Hash|String] job A hash or json string of a valid Job payload (https://www.nomadproject.io/docs/http/job.html)
@@ -69,7 +73,8 @@ module NomadClient
       end
 
       ##
-      # Deregister a Job in Nomad
+      # Deregisters a job, and stops all allocations part of it.
+      # https://www.nomadproject.io/docs/http/job.html
       #
       # @param [String] id The ID of the job according to Nomad
       # @return [Faraday::Response] A faraday response from Nomad
@@ -81,7 +86,8 @@ module NomadClient
       alias_method :deregister, :delete
 
       ##
-      # Retrieve the allocations for a Job in Nomad
+      # Query the allocations belonging to a single job
+      # https://www.nomadproject.io/docs/http/job.html
       #
       # @param [String] id The ID of the job according to Nomad
       # @return [Faraday::Response] A faraday response from Nomad
@@ -92,7 +98,8 @@ module NomadClient
       end
 
       ##
-      # Retrieve the evaluations for a Job in Nomad
+      # Query the evaluations belonging to a single job
+      # https://www.nomadproject.io/docs/http/job.html
       #
       # @param [String] id The ID of the job according to Nomad
       # @return [Faraday::Response] A faraday response from Nomad
@@ -103,7 +110,8 @@ module NomadClient
       end
 
       ##
-      # Force a new evaluation for a Job
+      # Creates a new evaluation for the given job. This can be used to force run the scheduling logic if necessary
+      # https://www.nomadproject.io/docs/http/job.html
       #
       # @param [String] id The ID of the job according to Nomad
       # @return [Faraday::Response] A faraday response from Nomad
@@ -114,7 +122,9 @@ module NomadClient
       end
 
       ##
-      # Force a new instance of a periodic Job
+      # Forces a new instance of the periodic job. A new instance will be created even if it violates the job's prohibit_overlap settings.
+      # As such, this should be only used to immediately run a periodic job
+      # https://www.nomadproject.io/docs/http/job.html
       #
       # @param [String] id The ID of the job according to Nomad
       # @return [Faraday::Response] A faraday response from Nomad

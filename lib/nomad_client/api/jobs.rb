@@ -8,7 +8,8 @@ module NomadClient
     class Jobs < Path
 
       ##
-      # Get all Job
+      # Lists all the jobs registered with Nomad
+      # https://www.nomadproject.io/docs/http/jobs.html
       #
       # @return [Faraday::Response] A faraday response from Nomad
       def get
@@ -18,7 +19,8 @@ module NomadClient
       end
 
       ##
-      # Create a Job in Nomad
+      # Registers a new job
+      # https://www.nomadproject.io/docs/http/jobs.html
       #
       # @param [String] id The ID of the job according to Nomad
       # @param [Hash|String] job A hash or json string of a valid Job payload (https://www.nomadproject.io/docs/http/job.html)
