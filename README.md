@@ -48,10 +48,12 @@ else
 end
 ```
 
-
-## Development
+## Docs
+For documentation about all the endpoints available in the gem, please see the [doc](doc/index.html) directory, or clone the repository and run `bundle exec rake yard` to get the latest docs if they're out of date.
 
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/xyzjace/nomad_client.
+
+Please ensure to include test coverage with any pull requests opened against the repository.
 
