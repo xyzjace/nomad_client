@@ -2,10 +2,10 @@ require 'spec_helper'
 module NomadClient
   module Api
     RSpec.describe 'Job' do
-      let!(:nomad_client) { NomadClient::Client.new('http://nomad.local') }
+      let!(:nomad_client) { NomadClient::Connection.new('http://nomad.local') }
 
       describe 'job' do
-        it 'should add the job method to the NomadClient::Client class' do
+        it 'should add the job method to the NomadClient::Connection class' do
           expect(nomad_client).to respond_to :job
           expect(nomad_client.job).to be_kind_of NomadClient::Api::Job
         end

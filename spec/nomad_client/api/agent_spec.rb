@@ -2,10 +2,10 @@ require 'spec_helper'
 module NomadClient
   module Api
     RSpec.describe 'Agent' do
-      let!(:nomad_client) { NomadClient::Client.new('http://nomad.local') }
+      let!(:nomad_client) { NomadClient::Connection.new('http://nomad.local') }
 
       describe 'agent' do
-        it 'should add the agent method to the NomadClient::Client class' do
+        it 'should add the agent method to the NomadClient::Connection class' do
           expect(nomad_client).to respond_to :agent
           expect(nomad_client.agent).to be_kind_of NomadClient::Api::Agent
         end

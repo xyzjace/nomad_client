@@ -1,5 +1,5 @@
 module NomadClient
-  class Client
+  class Connection
     def evaluation
       Api::Evaluation.new(self)
     end

@@ -1,7 +1,7 @@
 require 'faraday'
 require 'faraday_middleware'
 module NomadClient
-  class Client
+  class Connection
 
     attr_accessor :configuration
 

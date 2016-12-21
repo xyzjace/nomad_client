@@ -1,5 +1,5 @@
 module NomadClient
-  class Client
+  class Connection
     def job
       Api::Job.new(self)
     end

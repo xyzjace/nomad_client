@@ -2,10 +2,10 @@ require 'spec_helper'
 module NomadClient
   module Api
     RSpec.describe 'Allocations' do
-      let!(:nomad_client) { NomadClient::Client.new('http://nomad.local') }
+      let!(:nomad_client) { NomadClient::Connection.new('http://nomad.local') }
 
       describe 'allocations' do
-        it 'should add the allocations method to the NomadClient::Client class' do
+        it 'should add the allocations method to the NomadClient::Connection class' do
           expect(nomad_client).to respond_to :allocations
           expect(nomad_client.allocations).to be_kind_of NomadClient::Api::Allocations
         end

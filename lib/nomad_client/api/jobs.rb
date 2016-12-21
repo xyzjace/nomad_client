@@ -1,5 +1,5 @@
 module NomadClient
-  class Client
+  class Connection
     def jobs
       Api::Jobs.new(self)
     end
@@ -24,7 +24,7 @@ module NomadClient
       # @param [Hash|String] job A hash or json string of a valid Job payload (https://www.nomadproject.io/docs/http/job.html)
       # @return [Faraday::Response] A faraday response from Nomad
       def create(id, job)
-        client.job.create(id, job)
+        nomad_connection.job.create(id, job)
       end
     end
   end

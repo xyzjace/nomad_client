@@ -4,6 +4,7 @@ module NomadClient
     require_relative 'api/agent'
     require_relative 'api/allocation'
     require_relative 'api/allocations'
+    require_relative 'api/client'
     require_relative 'api/evaluation'
     require_relative 'api/evaluations'
     require_relative 'api/job'

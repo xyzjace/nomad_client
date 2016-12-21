@@ -5,7 +5,7 @@ module NomadClient
     describe '#new' do
       context 'with no optional configuration passed' do
         it 'should set sensible defaults' do
-          nomad_client = NomadClient::Client.new(nomad_url)
+          nomad_client = NomadClient::Connection.new(nomad_url)
 
           expect(nomad_client.configuration.url).to           eq nomad_url
           expect(nomad_client.configuration.port).to          eq Configuration::DEFAULT_PORT
@@ -16,7 +16,7 @@ module NomadClient
         it 'should override default configration' do
           port = 4647
           api_base_path = '/v2'
-          nomad_client = NomadClient::Client.new(nomad_url) do |config|
+          nomad_client = NomadClient::Connection.new(nomad_url) do |config|
             config.port          = port
             config.api_base_path = api_base_path
           end
@@ -31,7 +31,7 @@ module NomadClient
     describe '#connection' do
       context 'with default options' do
         it 'should configure the http client with our client configuration' do
-          nomad_client = NomadClient::Client.new(nomad_url)
+          nomad_client = NomadClient::Connection.new(nomad_url)
           connection = nomad_client.connection
 
           expect(nomad_url.end_with?(connection.host)).to eq true

@@ -1,14 +1,14 @@
 module NomadClient
   module Api
     class Path
-      attr_accessor :client
+      attr_accessor :nomad_connection
 
-      def initialize(client)
-        @client = client
+      def initialize(nomad_connection)
+        @nomad_connection = nomad_connection
       end
 
       def connection
-        @client.connection
+        @nomad_connection.connection
       end
 
     end

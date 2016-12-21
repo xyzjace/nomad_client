@@ -1,5 +1,5 @@
 module NomadClient
-  class Client
+  class Connection
     def allocation
       Api::Allocation.new(self)
     end

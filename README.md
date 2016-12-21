@@ -24,13 +24,13 @@ Or install it yourself as:
 For a default client
 
 ```ruby
-nomad_client = NomadClient::Client.new('https://nomad.local')
+nomad_client = NomadClient::Connection.new('https://nomad.local')
 ```
 
 Or to override default configuration
 
 ```ruby
-nomad_client = NomadClient::Client.new('https://nomad.local') do |config|
+nomad_client = NomadClient::Connection.new('https://nomad.local') do |config|
   config.port = 4647
   config.api_base_path = '/v2'
 end
