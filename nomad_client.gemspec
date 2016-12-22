@@ -8,10 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = NomadClient::VERSION
   spec.authors       = ["Jason Gellatly"]
   spec.email         = ["jason.gellatly@bigcommerce.com"]
-
   spec.summary       = %q{Client gem for interacting with Hashicorp's Nomad HTTP API}
-  spec.description   = %q{Client gem for interacting with Hashicorp's Nomad HTTP API}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.description   = %q{Client gem for interacting with Nomad HTTP API. Contains most endpoints as a thin wrapper around Faraday.}
+  spec.licenses      = ['MIT']
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
