@@ -12,12 +12,16 @@ module NomadClient
     end
 
     def connection
-      ::Faraday.new(url: "#{configuration.url}:#{configuration.port}#{configuration.api_base_path}") do |faraday|
+      ::Faraday.new({ url: connection_url, ssl: configuration.ssl }) do |faraday|
         faraday.request(:json)
         faraday.use(FaradayMiddleware::Mashify)
         faraday.response(:json, :content_type => /\bjson$/)
         faraday.adapter(Faraday.default_adapter)
       end
+    end
+
+    def connection_url
+      "#{configuration.url}:#{configuration.port}#{configuration.api_base_path}"
     end
   end
 end
