@@ -50,27 +50,26 @@ module NomadClient
         end
 
         describe '#pause' do
-          context 'when pausing' do
-            it 'should call post with deployment_id and a pause boolean set to true on the deployment_id pause endpoint' do
-              pause_params = {}
-              expect(connection).to receive(:post).and_yield(block_receiver)
-              expect(block_receiver).to receive(:url).with("deployment/pause/#{deployment_id}")
-              expect(block_receiver).to receive(:params).and_return(pause_params)
-              expect(pause_params).to receive(:[]=).with(:Pause, true)
+          it 'should call post with deployment_id and a pause boolean set to true on the deployment_id pause endpoint' do
+            pause_params = {}
+            expect(connection).to receive(:post).and_yield(block_receiver)
+            expect(block_receiver).to receive(:url).with("deployment/pause/#{deployment_id}")
+            expect(block_receiver).to receive(:params).and_return(pause_params)
+            expect(pause_params).to receive(:[]=).with(:Pause, true)
 
-              nomad_client.deployment.pause(deployment_id, true)
-            end
+            nomad_client.deployment.pause(deployment_id)
           end
-          context 'when unpausing' do
-            it 'should call post with deployment_id and a pause boolean set to true on the deployment_id pause endpoint' do
-              pause_params = {}
-              expect(connection).to receive(:post).and_yield(block_receiver)
-              expect(block_receiver).to receive(:url).with("deployment/pause/#{deployment_id}")
-              expect(block_receiver).to receive(:params).and_return(pause_params)
-              expect(pause_params).to receive(:[]=).with(:Pause, false)
+        end
 
-              nomad_client.deployment.pause(deployment_id, false)
-            end
+        describe '#unpause' do
+          it 'should call post with deployment_id and a pause boolean set to true on the deployment_id pause endpoint' do
+            pause_params = {}
+            expect(connection).to receive(:post).and_yield(block_receiver)
+            expect(block_receiver).to receive(:url).with("deployment/pause/#{deployment_id}")
+            expect(block_receiver).to receive(:params).and_return(pause_params)
+            expect(pause_params).to receive(:[]=).with(:Pause, false)
+
+            nomad_client.deployment.unpause(deployment_id)
           end
         end
 

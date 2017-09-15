@@ -45,18 +45,31 @@ module NomadClient
       end
 
       ##
-      # Pause or unpause a deployment. This is done to pause a rolling upgrade or resume it.
+      # Pause a deployment. This is done to pause a rolling upgrade.
       # https://www.nomadproject.io/api/deployments.html
       #
       # @param [String] id The ID of the deployment according to Nomad
-      # @param [Boolean] pause True if pausing, false if unpausing
       # @return [Faraday::Response] A faraday response from Nomad
-      def pause(id, pause)
+      def pause(id)
         connection.post do |req|
           req.url "deployment/pause/#{id}"
-          req.params[:Pause] = pause
+          req.params[:Pause] = true
         end
       end
+
+      ##
+      # Resume a deployment. This is done to resume a rolling upgrade.
+      # https://www.nomadproject.io/api/deployments.html
+      #
+      # @param [String] id The ID of the deployment according to Nomad
+      # @return [Faraday::Response] A faraday response from Nomad
+      def unpause(id)
+        connection.post do |req|
+          req.url "deployment/pause/#{id}"
+          req.params[:Pause] = false
+        end
+      end
+      alias_method :resume, :unpause
 
       ##
       # Promote task groups that have canaries for a deployment. This should be done when the placed canaries are healthy and the rolling upgrade of the remaining allocations should begin.
