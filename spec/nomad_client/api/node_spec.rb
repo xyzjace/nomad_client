@@ -56,7 +56,7 @@ module NomadClient
               expect(block_receiver).to receive(:url).with("node/#{node_id}/drain")
               expect(block_receiver).to receive(:params).and_return(params_hash)
               expect(params_hash).to receive_message_chain(:[]=).with(:enable, false)
-              nomad_client.node.drain(node_id, false)
+              nomad_client.node.drain(node_id, enable: false)
             end
           end
         end
