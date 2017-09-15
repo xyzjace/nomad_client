@@ -11,10 +11,13 @@ module NomadClient
       # Lists all the deployments
       # https://www.nomadproject.io/api/deployments.html
       #
+      # @param [String] prefix Specifies a string to filter deployments on based on an index prefix. This is specified as a querystring parameter.
+      #
       # @return [Faraday::Response] A faraday response from Nomad
-      def get
+      def get(prefix = nil)
         connection.get do |req|
           req.url "deployments"
+          req.params[:prefix] = prefix
         end
       end
     end

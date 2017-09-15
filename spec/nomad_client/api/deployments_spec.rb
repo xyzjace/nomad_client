@@ -22,11 +22,27 @@ module NomadClient
         end
 
         describe '#get' do
-          it 'should call get with deployments endpoint' do
-            expect(connection).to receive(:get).and_yield(block_receiver)
-            expect(block_receiver).to receive(:url).with("deployments")
+          context 'with no prefix' do
+            it 'should call get on the deployments endpoint with a nil prefix' do
+              prefix_params = {}
+              expect(connection).to receive(:get).and_yield(block_receiver)
+              expect(block_receiver).to receive(:url).with("deployments")
+              allow(block_receiver).to receive(:params).and_return(prefix_params)
+              expect(prefix_params).to receive(:[]=).with(:prefix, nil)
 
-            nomad_client.deployments.get
+              nomad_client.deployments.get
+            end
+          end
+          context 'with a prefix' do
+            it 'should call get on the deployments endpoint with a prefix supplied' do
+              prefix_params = {}
+              expect(connection).to receive(:get).and_yield(block_receiver)
+              expect(block_receiver).to receive(:url).with("deployments")
+              allow(block_receiver).to receive(:params).and_return(prefix_params)
+              expect(prefix_params).to receive(:[]=).with(:prefix, 'my-cool')
+
+              nomad_client.deployments.get('my-cool')
+            end
           end
         end
       end
