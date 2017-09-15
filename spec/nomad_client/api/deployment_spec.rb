@@ -84,7 +84,7 @@ module NomadClient
               expect(promote_params).to receive(:[]=).with(:All, true)
               expect(promote_params).to receive(:[]=).with(:Groups, nil)
 
-              nomad_client.deployment.promote(deployment_id, true)
+              nomad_client.deployment.promote(deployment_id, all: true)
             end
           end
           context 'when promoting a subset' do
@@ -97,7 +97,7 @@ module NomadClient
               expect(promote_params).to receive(:[]=).with(:Groups, ['a-task-group'])
 
 
-              nomad_client.deployment.promote(deployment_id, false, ['a-task-group'])
+              nomad_client.deployment.promote(deployment_id, all: false, groups: ['a-task-group'])
             end
           end
         end

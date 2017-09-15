@@ -66,7 +66,7 @@ module NomadClient
       # @param [Boolean] all Whether all task groups should be promoted
       # @param [Array[String]] groups A particular set of task groups that should be promoted
       # @return [Faraday::Response] A faraday response from Nomad
-      def promote(id, all = false, groups = nil)
+      def promote(id, all: false, groups: nil)
         connection.post do |req|
           req.url "deployment/promote/#{id}"
           req.params[:All] = all

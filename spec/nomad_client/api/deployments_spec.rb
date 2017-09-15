@@ -41,7 +41,7 @@ module NomadClient
               allow(block_receiver).to receive(:params).and_return(prefix_params)
               expect(prefix_params).to receive(:[]=).with(:prefix, 'my-cool')
 
-              nomad_client.deployments.get('my-cool')
+              nomad_client.deployments.get(prefix: 'my-cool')
             end
           end
         end
