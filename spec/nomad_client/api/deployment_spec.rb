@@ -113,7 +113,7 @@ module NomadClient
               expect(promote_params).to receive(:[]=).with(:HealthyAllocationIDs, ['an-allocation-id-to-set-to-healthy'])
               expect(promote_params).to receive(:[]=).with(:UnhealthyAllocationIDs, nil)
 
-              nomad_client.deployment.allocation_health(deployment_id, { healthy_allocation_ids: ['an-allocation-id-to-set-to-healthy']})
+              nomad_client.deployment.allocation_health(deployment_id, healthy_allocation_ids: ['an-allocation-id-to-set-to-healthy'])
             end
           end
           context 'when setting allocations to unhealthy' do
@@ -125,7 +125,7 @@ module NomadClient
               expect(promote_params).to receive(:[]=).with(:HealthyAllocationIDs, nil)
               expect(promote_params).to receive(:[]=).with(:UnhealthyAllocationIDs, ['an-allocation-id-to-set-to-unhealthy'])
 
-              nomad_client.deployment.allocation_health(deployment_id, { unhealthy_allocation_ids: ['an-allocation-id-to-set-to-unhealthy']})
+              nomad_client.deployment.allocation_health(deployment_id, unhealthy_allocation_ids: ['an-allocation-id-to-set-to-unhealthy'])
             end
           end
         end

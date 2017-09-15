@@ -81,13 +81,14 @@ module NomadClient
       # https://www.nomadproject.io/api/deployments.html
       #
       # @param [String] id The ID of the deployment according to Nomad
-      # @param [Hash[Array]] allocation_ids A hash of arrays, keyed with `healthy_allocation_ids` and `unhealthy_allocation_ids`, both of which should be arrays (or nil)
+      # @param [Array[String]] healthy_allocation_ids Specifies the set of allocation that should be marked as healthy
+      # @param [Array[String]] unhealthy_allocation_ids Specifies the set of allocation that should be marked as unhealthy
       # @return [Faraday::Response] A faraday response from Nomad
-      def allocation_health(id, allocation_ids = { healthy_allocation_ids: nil, unhealthy_allocation_ids: nil })
+      def allocation_health(id, healthy_allocation_ids: nil, unhealthy_allocation_ids: nil)
         connection.post do |req|
           req.url "deployment/allocation-health/#{id}"
-          req.params[:HealthyAllocationIDs]   = allocation_ids[:healthy_allocation_ids]
-          req.params[:UnhealthyAllocationIDs] = allocation_ids[:unhealthy_allocation_ids]
+          req.params[:HealthyAllocationIDs]   = healthy_allocation_ids
+          req.params[:UnhealthyAllocationIDs] = unhealthy_allocation_ids
         end
       end
     end
