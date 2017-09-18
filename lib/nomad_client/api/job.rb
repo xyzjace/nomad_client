@@ -153,7 +153,7 @@ module NomadClient
       # @param [String] id The ID of the job according to Nomad
       # @return [Faraday::Response] A faraday response from Nomad
       def deployments(id)
-        connection.post do |req|
+        connection.get do |req|
           req.url "job/#{id}/deployments"
         end
       end
@@ -165,7 +165,7 @@ module NomadClient
       # @param [String] id The ID of the job according to Nomad
       # @return [Faraday::Response] A faraday response from Nomad
       def most_recent_deployment(id)
-        connection.post do |req|
+        connection.get do |req|
           req.url "job/#{id}/deployment"
         end
       end
