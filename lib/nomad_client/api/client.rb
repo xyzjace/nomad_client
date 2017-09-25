@@ -91,14 +91,14 @@ module NomadClient
       # Note, this must be the full allocation ID, not the short 8-character one. This is specified as part of the path.
       # @param [String] task the name of the task inside the allocation to stream logs from
       # @param [Boolean] follow Whether to tail the logs
-      # @param [String] type Specifies the stream to stream
+      # @param [String] type Specifies the stream to stream (stdout | stderr)
       # @param [Integer] offset The byte offset from where content will be read
       # @param [String] origin Applies the relative offset to either the start or end of the file
       # @param [Boolean] plain Return just the plain text without framing. This can be useful when viewing logs in a browser
       # @return [Faraday::Response] A faraday response from Nomad
       def stream_logs(alloc_id, task, follow: false, type: 'stdout', offset: 0, origin: 'start', plain: false)
         connection.get do |req|
-          req.url "client/fs/stream/#{alloc_id}"
+          req.url "client/fs/logs/#{alloc_id}"
           req.params[:task]   = task
           req.params[:follow] = follow
           req.params[:type]   = type
