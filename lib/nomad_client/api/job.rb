@@ -141,7 +141,7 @@ module NomadClient
       # @param [String] id The ID of the job according to Nomad
       # @return [Faraday::Response] A faraday response from Nomad
       def versions(id)
-        connection.post do |req|
+        connection.get do |req|
           req.url "job/#{id}/versions"
         end
       end
