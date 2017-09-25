@@ -76,17 +76,17 @@ module NomadClient
         describe '#stream_file' do
           it 'should call get on the fs/stream endpoint with the alloc id, offset, origin, and a path' do
             allocation_id    = '203266e5-e0d6-9486-5e05-397ed2b184af'
-            read_file_params = {}
+            stream_file_params = {}
             offset           = 10
             origin           = 'end'
             path             = '/file.json'
 
             expect(connection).to receive(:get).and_yield(block_receiver)
             expect(block_receiver).to receive(:url).with("client/fs/stream/#{allocation_id}")
-            allow(block_receiver).to receive(:params).and_return(read_file_params)
-            expect(read_file_params).to receive(:[]=).with(:offset, offset)
-            expect(read_file_params).to receive(:[]=).with(:origin, origin)
-            expect(read_file_params).to receive(:[]=).with(:path, path)
+            allow(block_receiver).to receive(:params).and_return(stream_file_params)
+            expect(stream_file_params).to receive(:[]=).with(:offset, offset)
+            expect(stream_file_params).to receive(:[]=).with(:origin, origin)
+            expect(stream_file_params).to receive(:[]=).with(:path, path)
 
             nomad_client.client.stream_file(allocation_id, offset, origin: origin, path: path)
           end
@@ -94,24 +94,24 @@ module NomadClient
 
         describe '#stream_logs' do
           it 'should call get on the fs/logs endpoint with the alloc_id, task, follow, type, offset, origin, and plain param' do
-            allocation_id    = '203266e5-e0d6-9486-5e05-397ed2b184af'
-            task             = 'web'
-            follow           = true
-            plain            = true
-            read_file_params = {}
-            offset           = 10
-            type             = 'stdout'
-            origin           = 'start'
+            allocation_id      = '203266e5-e0d6-9486-5e05-397ed2b184af'
+            task               = 'web'
+            follow             = true
+            plain              = true
+            stream_logs_params = {}
+            offset             = 10
+            type               = 'stdout'
+            origin             = 'start'
 
             expect(connection).to receive(:get).and_yield(block_receiver)
             expect(block_receiver).to receive(:url).with("client/fs/logs/#{allocation_id}")
-            allow(block_receiver).to receive(:params).and_return(read_file_params)
-            expect(read_file_params).to receive(:[]=).with(:task, task)
-            expect(read_file_params).to receive(:[]=).with(:follow, follow)
-            expect(read_file_params).to receive(:[]=).with(:type, type)
-            expect(read_file_params).to receive(:[]=).with(:offset, offset)
-            expect(read_file_params).to receive(:[]=).with(:origin, origin)
-            expect(read_file_params).to receive(:[]=).with(:plain, plain)
+            allow(block_receiver).to receive(:params).and_return(stream_logs_params)
+            expect(stream_logs_params).to receive(:[]=).with(:task, task)
+            expect(stream_logs_params).to receive(:[]=).with(:follow, follow)
+            expect(stream_logs_params).to receive(:[]=).with(:type, type)
+            expect(stream_logs_params).to receive(:[]=).with(:offset, offset)
+            expect(stream_logs_params).to receive(:[]=).with(:origin, origin)
+            expect(stream_logs_params).to receive(:[]=).with(:plain, plain)
 
             nomad_client.client.stream_logs(
               allocation_id,
@@ -122,6 +122,36 @@ module NomadClient
               origin: origin,
               plain: plain
             )
+          end
+        end
+
+        describe '#list_files' do
+          it 'should call get on the fs/ls endpoint with the alloc_id, and a path' do
+            allocation_id    = '203266e5-e0d6-9486-5e05-397ed2b184af'
+            path             = '/logs'
+            list_files_params = {}
+
+            expect(connection).to receive(:get).and_yield(block_receiver)
+            expect(block_receiver).to receive(:url).with("client/fs/ls/#{allocation_id}")
+            allow(block_receiver).to receive(:params).and_return(list_files_params)
+            expect(list_files_params).to receive(:[]=).with(:path, path)
+
+            nomad_client.client.list_files(allocation_id, path: path)
+          end
+        end
+
+        describe '#stat_file' do
+          it 'should call get on the fs/stat endpoint with the alloc_id, and a path' do
+            allocation_id    = '203266e5-e0d6-9486-5e05-397ed2b184af'
+            path             = '/file.json'
+            stat_file_params = {}
+
+            expect(connection).to receive(:get).and_yield(block_receiver)
+            expect(block_receiver).to receive(:url).with("client/fs/stat/#{allocation_id}")
+            allow(block_receiver).to receive(:params).and_return(stat_file_params)
+            expect(stat_file_params).to receive(:[]=).with(:path, path)
+
+            nomad_client.client.stat_file(allocation_id, path: path)
           end
         end
 
