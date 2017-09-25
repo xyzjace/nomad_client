@@ -1,5 +1,9 @@
 Changelog for nomad_client.
 
+## 0.3.0
+
+* Adds remaining endpoints according to the API documentation at https://www.nomadproject.io/api/index.html
+
 ## 0.2.0
 
 * Adds the classes and attributes required for dealing with the deployment endpoints

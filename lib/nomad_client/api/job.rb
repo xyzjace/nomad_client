@@ -134,6 +134,91 @@ module NomadClient
         end
       end
 
+      ##
+      # Reads information about all versions of a job
+      # https://www.nomadproject.io/docs/http/job.html
+      #
+      # @param [String] id The ID of the job according to Nomad
+      # @return [Faraday::Response] A faraday response from Nomad
+      def versions(id)
+        connection.get do |req|
+          req.url "job/#{id}/versions"
+        end
+      end
+
+      ##
+      # Lists a single job's deployments
+      # https://www.nomadproject.io/docs/http/job.html
+      #
+      # @param [String] id The ID of the job according to Nomad
+      # @return [Faraday::Response] A faraday response from Nomad
+      def deployments(id)
+        connection.get do |req|
+          req.url "job/#{id}/deployments"
+        end
+      end
+
+      ##
+      # Returns a single job's most recent deployment
+      # https://www.nomadproject.io/docs/http/job.html
+      #
+      # @param [String] id The ID of the job according to Nomad
+      # @return [Faraday::Response] A faraday response from Nomad
+      def most_recent_deployment(id)
+        connection.get do |req|
+          req.url "job/#{id}/deployment"
+        end
+      end
+
+      ##
+      # Dispatches a new instance of a parameterized job
+      # https://www.nomadproject.io/docs/http/job.html
+      #
+      # @param [String] id The ID of the job according to Nomad
+      # @param [String] payload Base64 encoded string containing the payload. This is limited to 15 KB
+      # @param [Hash] meta Arbitrary metadata to pass to the job
+      # @return [Faraday::Response] A faraday response from Nomad
+      def dispatch(id, payload: '', meta: nil)
+        connection.post do |req|
+          req.url "job/#{id}/dispatch"
+          req.params[:Payload] = payload
+          req.params[:Meta]    = meta
+        end
+      end
+
+      ##
+      # Reverts the job to an older version.
+      # https://www.nomadproject.io/docs/http/job.html
+      #
+      # @param [String] id The ID of the job according to Nomad
+      # @param [Integer] job_version The job version to revert to
+      # @param [Integer] enforce_prior_version Value specifying the current job's version.
+      # This is checked and acts as a check-and-set value before reverting to the specified job
+      # @return [Faraday::Response] A faraday response from Nomad
+      def revert(id, job_version: 0, enforce_prior_version: nil)
+        connection.post do |req|
+          req.url "job/#{id}/revert"
+          req.params[:JobVersion]          = job_version
+          req.params[:EnforcePriorVersion] = enforce_prior_version
+        end
+      end
+
+      ##
+      # Sets the job's stability
+      # https://www.nomadproject.io/docs/http/job.html
+      #
+      # @param [String] id The ID of the job according to Nomad
+      # @param [Integer] job_version The job version to set the stability on
+      # @param [Integer] enforce_prior_version Whether the job should be marked as stable or not
+      # @return [Faraday::Response] A faraday response from Nomad
+      def stable(id, job_version: 0, stable: false)
+        connection.post do |req|
+          req.url "job/#{id}/stable"
+          req.params[:JobVersion] = job_version
+          req.params[:Stable]     = stable
+        end
+      end
+
     end
   end
 end

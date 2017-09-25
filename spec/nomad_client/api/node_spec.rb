@@ -60,6 +60,15 @@ module NomadClient
             end
           end
         end
+
+        describe '#evaluate' do
+          it 'should call post with a node_id on the evaluate endpoint' do
+            expect(connection).to receive(:post).and_yield(block_receiver)
+            expect(block_receiver).to receive(:url).with("node/#{node_id}/evaluate")
+
+            nomad_client.node.evaluate(node_id)
+          end
+        end
       end
     end
   end

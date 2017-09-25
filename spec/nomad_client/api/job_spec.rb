@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'base64'
 module NomadClient
   module Api
     RSpec.describe 'Job' do
@@ -116,6 +117,90 @@ module NomadClient
           end
         end
 
+        describe '#plan' do
+          it 'should call post with job_id and a job json blob on the plan endpoint' do
+            expect(connection).to receive(:post).and_yield(block_receiver)
+            expect(block_receiver).to receive(:url).with("job/#{job_id}/plan")
+            expect(block_receiver).to receive(:body=).with(nomad_job)
+
+            nomad_client.job.plan(job_id, nomad_job)
+          end
+        end
+
+        describe '#versions' do
+          it 'should call get with job_id and on the versions endpoint' do
+            expect(connection).to receive(:get).and_yield(block_receiver)
+            expect(block_receiver).to receive(:url).with("job/#{job_id}/versions")
+
+            nomad_client.job.versions(job_id)
+          end
+        end
+
+        describe '#deployments' do
+          it 'should call get with job_id and on the deployments endpoint' do
+            expect(connection).to receive(:get).and_yield(block_receiver)
+            expect(block_receiver).to receive(:url).with("job/#{job_id}/deployments")
+
+            nomad_client.job.deployments(job_id)
+          end
+        end
+
+        describe '#most_recent_deployment' do
+          it 'should call get with job_id and on the deployment endpoint' do
+            expect(connection).to receive(:get).and_yield(block_receiver)
+            expect(block_receiver).to receive(:url).with("job/#{job_id}/deployment")
+
+            nomad_client.job.most_recent_deployment(job_id)
+          end
+        end
+
+        describe '#dispatch' do
+          it 'should call post on the dispatch endpoint with the job_id, payload, and meta hash' do
+            payload         = ::Base64.encode64('some-payload')
+            meta            = { 'key' => 'value' }
+            dispatch_params = {}
+
+            expect(connection).to receive(:post).and_yield(block_receiver)
+            expect(block_receiver).to receive(:url).with("job/#{job_id}/dispatch")
+            allow(block_receiver).to receive(:params).and_return(dispatch_params)
+            expect(dispatch_params).to receive(:[]=).with(:Payload, payload)
+            expect(dispatch_params).to receive(:[]=).with(:Meta, meta)
+
+            nomad_client.job.dispatch(job_id, payload: payload, meta: meta)
+          end
+        end
+
+        describe '#revert' do
+          it 'should call post on the revert endpoint with the job_id, job_version, and an enforce_prior_version param' do
+            job_version           = 1
+            enforce_prior_version = true
+            revert_params         = {}
+
+            expect(connection).to receive(:post).and_yield(block_receiver)
+            expect(block_receiver).to receive(:url).with("job/#{job_id}/revert")
+            allow(block_receiver).to receive(:params).and_return(revert_params)
+            expect(revert_params).to receive(:[]=).with(:JobVersion, job_version)
+            expect(revert_params).to receive(:[]=).with(:EnforcePriorVersion, enforce_prior_version)
+
+            nomad_client.job.revert(job_id, job_version: job_version, enforce_prior_version: enforce_prior_version)
+          end
+        end
+
+        describe '#stable' do
+          it 'should call post on the stable endpoint with the job_id, job_version, and a stable param' do
+            job_version   = 2
+            stable        = false
+            stable_params = {}
+
+            expect(connection).to receive(:post).and_yield(block_receiver)
+            expect(block_receiver).to receive(:url).with("job/#{job_id}/stable")
+            allow(block_receiver).to receive(:params).and_return(stable_params)
+            expect(stable_params).to receive(:[]=).with(:JobVersion, job_version)
+            expect(stable_params).to receive(:[]=).with(:Stable, stable)
+
+            nomad_client.job.stable(job_id, job_version: job_version, stable: stable)
+          end
+        end
       end
     end
   end
