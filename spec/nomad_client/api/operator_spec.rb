@@ -6,7 +6,7 @@ module NomadClient
 
       describe 'operator' do
         it 'should add the operator method to the NomadClient::Connection class' do
-          expect(nomad_client).to respond_to :regions
+          expect(nomad_client).to respond_to :operator
           expect(nomad_client.operator).to be_kind_of NomadClient::Api::Operator
         end
       end
