@@ -29,7 +29,6 @@ module NomadClient
             nomad_client.validate.job(nomad_job)
           end
         end
-
       end
     end
   end

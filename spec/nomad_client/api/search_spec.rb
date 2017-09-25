@@ -32,8 +32,6 @@ module NomadClient
             nomad_client.search.get(prefix, context_param)
           end
         end
-
-
       end
     end
   end
