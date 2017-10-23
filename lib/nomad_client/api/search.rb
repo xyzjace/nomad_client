@@ -18,8 +18,10 @@ module NomadClient
       def get(prefix, context)
         connection.post do |req|
           req.url "search"
-          req.params[:Prefix]  = prefix
-          req.params[:Context] = context
+          req.body = {
+            "Prefix" => prefix,
+            "Context" => context
+          }
         end
       end
     end

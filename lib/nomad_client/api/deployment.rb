@@ -53,7 +53,9 @@ module NomadClient
       def pause(id)
         connection.post do |req|
           req.url "deployment/pause/#{id}"
-          req.params[:Pause] = true
+          req.body = {
+            "Pause" => true
+          }
         end
       end
 
@@ -66,7 +68,9 @@ module NomadClient
       def unpause(id)
         connection.post do |req|
           req.url "deployment/pause/#{id}"
-          req.params[:Pause] = false
+          req.body = {
+            "Pause" => false
+          }
         end
       end
       alias_method :resume, :unpause
@@ -82,8 +86,10 @@ module NomadClient
       def promote(id, all: false, groups: nil)
         connection.post do |req|
           req.url "deployment/promote/#{id}"
-          req.params[:All] = all
-          req.params[:Groups] = groups
+          req.body = {
+            "All" => all,
+            "Groups" => groups
+          }
         end
       end
 
@@ -100,8 +106,10 @@ module NomadClient
       def allocation_health(id, healthy_allocation_ids: nil, unhealthy_allocation_ids: nil)
         connection.post do |req|
           req.url "deployment/allocation-health/#{id}"
-          req.params[:HealthyAllocationIDs]   = healthy_allocation_ids
-          req.params[:UnhealthyAllocationIDs] = unhealthy_allocation_ids
+          req.body = {
+            "HealthyAllocationIDs" => healthy_allocation_ids,
+            "UnhealthyAllocationIDs" => unhealthy_allocation_ids
+          }
         end
       end
     end

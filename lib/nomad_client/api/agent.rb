@@ -27,7 +27,9 @@ module NomadClient
       def join(addresses)
         connection.post do |req|
           req.url "agent/join"
-          req.params[:address] = addresses
+          req.body = {
+            "address" => addresses
+          }
         end
       end
 
@@ -51,7 +53,9 @@ module NomadClient
       def force_leave(node)
         connection.post do |req|
           req.url "agent/force-leave"
-          req.params[:node] = node
+          req.body = {
+            "node" => node
+          }
         end
       end
 
@@ -75,7 +79,9 @@ module NomadClient
       def update_servers(addresses)
         connection.post do |req|
           req.url "agent/servers"
-          req.params[:address] = addresses
+          req.body = {
+            "address" => addresses
+          }
         end
       end
 

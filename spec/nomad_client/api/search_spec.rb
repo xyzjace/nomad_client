@@ -27,8 +27,10 @@ module NomadClient
             expect(connection).to receive(:post).and_yield(block_receiver)
             expect(block_receiver).to receive(:url).with("search")
             allow(block_receiver).to receive(:params).and_return(params_hash)
-            expect(params_hash).to receive_message_chain(:[]=).with(:Prefix, prefix)
-            expect(params_hash).to receive_message_chain(:[]=).with(:Context, context_param)
+            expect(block_receiver).to receive(:body=).with({
+              "Prefix" => prefix,
+              "Context" => context_param
+            })
             nomad_client.search.get(prefix, context_param)
           end
         end

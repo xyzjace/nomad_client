@@ -42,7 +42,9 @@ module NomadClient
       def drain(id, enable: true)
         connection.post do |req|
           req.url "node/#{id}/drain"
-          req.params[:enable] = enable
+          req.body = {
+            "enable" => enable
+          }
         end
       end
 
