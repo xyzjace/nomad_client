@@ -35,13 +35,10 @@ module NomadClient
           it 'should call delete on the peer endpoint with an address and stale param' do
             stale = true
             address = 'https://nomad.local'
-            params_hash = {}
 
             expect(connection).to receive(:delete).and_yield(block_receiver)
             expect(block_receiver).to receive(:url).with("operator/raft/peer")
-            allow(block_receiver).to receive(:params).and_return(params_hash)
-            expect(params_hash).to receive_message_chain(:[]=).with(:address, address)
-            expect(params_hash).to receive_message_chain(:[]=).with(:stale, stale)
+            expect(block_receiver).to receive_message_chain(:body=).with({"address" => address, "stale" => stale})
             nomad_client.operator.remove_raft_peer(address, stale: stale)
           end
         end

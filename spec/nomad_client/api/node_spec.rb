@@ -41,21 +41,17 @@ module NomadClient
         describe '#drain' do
           context 'without supplying enable' do
             it 'should call post with a node_id and an enable flag set to true' do
-              params_hash = {}
               expect(connection).to receive(:post).and_yield(block_receiver)
               expect(block_receiver).to receive(:url).with("node/#{node_id}/drain")
-              expect(block_receiver).to receive(:params).and_return(params_hash)
-              expect(params_hash).to receive_message_chain(:[]=).with(:enable, true)
+              expect(block_receiver).to receive_message_chain(:body=).with({"enable" => true})
               nomad_client.node.drain(node_id)
             end
           end
           context 'when supplying enable' do
             it 'should call post with a node_id and an enable flag set to false' do
-              params_hash = {}
               expect(connection).to receive(:post).and_yield(block_receiver)
               expect(block_receiver).to receive(:url).with("node/#{node_id}/drain")
-              expect(block_receiver).to receive(:params).and_return(params_hash)
-              expect(params_hash).to receive_message_chain(:[]=).with(:enable, false)
+              expect(block_receiver).to receive_message_chain(:body=).with({"enable" => false})
               nomad_client.node.drain(node_id, enable: false)
             end
           end

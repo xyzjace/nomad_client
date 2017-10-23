@@ -30,12 +30,10 @@ module NomadClient
 
         describe '#join' do
           it 'should call post on the join endpoint with one or more addresses' do
-            params_hash = {}
             addresses = ['http://nomad.2.local', 'http://nomad.3.local']
             expect(connection).to receive(:post).and_yield(block_receiver)
             expect(block_receiver).to receive(:url).with("agent/join")
-            expect(block_receiver).to receive(:params).and_return(params_hash)
-            expect(params_hash).to receive_message_chain(:[]=).with(:address, addresses)
+            expect(block_receiver).to receive(:body=).with({"address" => addresses})
             nomad_client.agent.join(addresses)
           end
         end
@@ -51,12 +49,10 @@ module NomadClient
 
         describe '#force_leave' do
           it 'should call post with a node name on the force-leave endpoint' do
-            params_hash = {}
             node = 'integration-3'
             expect(connection).to receive(:post).and_yield(block_receiver)
             expect(block_receiver).to receive(:url).with("agent/force-leave")
-            expect(block_receiver).to receive(:params).and_return(params_hash)
-            expect(params_hash).to receive_message_chain(:[]=).with(:node, node)
+            expect(block_receiver).to receive(:body=).with({"node" => node})
             nomad_client.agent.force_leave(node)
           end
         end
@@ -73,12 +69,10 @@ module NomadClient
 
         describe '#update_servers' do
           it 'should call post on the servers endpoint with one or more addresses' do
-            params_hash = {}
             addresses = ['http://nomad.2.local:4646', 'http://nomad.3.local:4646']
             expect(connection).to receive(:post).and_yield(block_receiver)
             expect(block_receiver).to receive(:url).with("agent/servers")
-            expect(block_receiver).to receive(:params).and_return(params_hash)
-            expect(params_hash).to receive_message_chain(:[]=).with(:address, addresses)
+            expect(block_receiver).to receive(:body=).with({"address" => addresses})
             nomad_client.agent.update_servers(addresses)
           end
         end
