@@ -30,8 +30,10 @@ module NomadClient
       def remove_raft_peer(address, stale: false)
         connection.delete do |req|
           req.url "operator/raft/peer"
-          req.params[:address] = address
-          req.params[:stale]   = stale
+          req.body = {
+            "address" => address,
+            "stale" => stale
+          }
         end
       end
     end

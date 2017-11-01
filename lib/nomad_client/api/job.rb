@@ -181,8 +181,10 @@ module NomadClient
       def dispatch(id, payload: '', meta: nil)
         connection.post do |req|
           req.url "job/#{id}/dispatch"
-          req.params[:Payload] = payload
-          req.params[:Meta]    = meta
+          req.body = {
+            "Payload" => payload,
+            "Meta" => meta
+          }
         end
       end
 
@@ -198,8 +200,10 @@ module NomadClient
       def revert(id, job_version: 0, enforce_prior_version: nil)
         connection.post do |req|
           req.url "job/#{id}/revert"
-          req.params[:JobVersion]          = job_version
-          req.params[:EnforcePriorVersion] = enforce_prior_version
+          req.body = {
+            "JobVersion" => job_version,
+            "EnforcePriorVersion" => enforce_prior_version
+          }
         end
       end
 
@@ -214,8 +218,10 @@ module NomadClient
       def stable(id, job_version: 0, stable: false)
         connection.post do |req|
           req.url "job/#{id}/stable"
-          req.params[:JobVersion] = job_version
-          req.params[:Stable]     = stable
+          req.body = {
+            "JobVersion" => job_version,
+            "Stable" => stable
+          }
         end
       end
 
