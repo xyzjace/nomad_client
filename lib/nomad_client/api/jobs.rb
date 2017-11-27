@@ -11,10 +11,12 @@ module NomadClient
       # Lists all the jobs registered with Nomad
       # https://www.nomadproject.io/docs/http/jobs.html
       #
+      # @param [String] prefix Specifies a string to filter jobs on based on an index prefix. This is specified as a querystring parameter.
       # @return [Faraday::Response] A faraday response from Nomad
-      def get
+      def get(prefix: nil)
         connection.get do |req|
           req.url "jobs"
+          req.params[:prefix] = prefix
         end
       end
 
