@@ -22,11 +22,26 @@ module NomadClient
         end
 
         describe '#get' do
-          it 'should call get with jobs endpoint' do
-            expect(connection).to receive(:get).and_yield(block_receiver)
-            expect(block_receiver).to receive(:url).with("jobs")
+          let(:prefix_params) { {} }
+          let(:block_receiver) { double(:block_receiver, params: prefix_params) }
+          
+          context 'with no prefix' do
+            it 'should call get on the jobs endpoint with a nil prefix' do
+              expect(connection).to receive(:get).and_yield(block_receiver)
+              expect(block_receiver).to receive(:url).with('jobs')
+              expect(prefix_params).to receive(:[]=).with(:prefix, nil)
 
-            nomad_client.jobs.get
+              nomad_client.jobs.get
+            end
+          end
+          context 'with a prefix' do
+            it 'should call get on the deployments jobs with a prefix supplied' do
+              expect(connection).to receive(:get).and_yield(block_receiver)
+              expect(block_receiver).to receive(:url).with('jobs')
+              expect(prefix_params).to receive(:[]=).with(:prefix, 'parent-job')
+
+              nomad_client.jobs.get(prefix: 'parent-job')
+            end
           end
         end
 

@@ -1,5 +1,8 @@
 Changelog for nomad_client.
 
+## 0.3.2
+* Add support for passing prefix to List Jobs endpoint.
+
 ## 0.3.1
 
 * Fixes bugs in non-GET endpoints which require body to be used instead of query params
