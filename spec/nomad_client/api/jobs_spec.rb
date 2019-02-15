@@ -53,6 +53,17 @@ module NomadClient
           end
         end
 
+        describe '#parse' do
+          let(:nomad_hcl) { 'job "example" { }' }
+          it 'should call post with a job HCL blob on the jobs endpoint' do
+            expect(connection).to receive(:post).and_yield(block_receiver)
+            expect(block_receiver).to receive(:url).with("jobs/parse")
+            expect(block_receiver).to receive(:body=).with({"JobHCL": "job \"example\" { }"})
+
+            nomad_client.jobs.parse(nomad_hcl)
+          end
+        end
+
       end
     end
   end
