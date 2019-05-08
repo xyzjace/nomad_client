@@ -1,5 +1,8 @@
 Changelog for nomad_client.
 
+## 0.3.3
+* Add support for parsing HCL job specs to JSON
+
 ## 0.3.2
 * Add support for passing prefix to List Jobs endpoint.
 

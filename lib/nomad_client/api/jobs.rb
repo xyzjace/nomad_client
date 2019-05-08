@@ -30,6 +30,21 @@ module NomadClient
       def create(id, job)
         nomad_connection.job.create(id, job)
       end
+
+      ##
+      # Parses provided HCL formatted job spec to JSON
+      # https://www.nomadproject.io/docs/http/jobs.html
+      #
+      # @param [Hash|String] job A hash or json string of a valid Job payload (https://www.nomadproject.io/docs/http/job.html)
+      # @return [Faraday::Response] A faraday response from Nomad
+      def parse(job)
+        connection.post do |req|
+          req.url "jobs/parse"
+          req.body = {
+            "JobHCL": job
+          }
+        end
+      end
     end
   end
 end
